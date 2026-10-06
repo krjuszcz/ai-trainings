@@ -48,6 +48,17 @@ Optionally also run `/ponytail-review` for over-engineering. Decide for each fin
 ### 6. Draft PR (5 min)
 Ask Claude for a PR description that lists criteria covered, commands run with results, targets not run, and review findings with decisions. Open the PR with GitHub MCP only if your team allows it; otherwise stop at the description. Never let Claude push or merge unreviewed.
 
+## Autonomous mode: one skill for the whole loop
+
+`.claude/skills/deliver-ticket/` chains the three skills: spec, implement, two blind adversarial reviews with fixes, then a draft-PR description. Each phase runs in its own subagent, so no phase sees another's reasoning.
+
+```text
+/deliver-ticket TICKET.md          # stops at docs/generated/pr-NET-1427.md
+/deliver-ticket TICKET.md open     # also pushes the branch and opens a draft PR
+```
+
+Use it after you have run steps 1–6 by hand once, so you know what the skill is skipping: the spec approval and your own diff reading. Treat the result as a handoff to a reviewer, not a merge candidate. Try it without `open` first; the PR convention (branch, title, body sections) is in the skill file, so change it there to match your team.
+
 ## Model routing
 
 The skill `model` field switches the model for that skill's turn. Check which model is active with `/model` and confirm it matches the table above. If a skill does not switch in your version, use `/model opus` before steps 2 and 5 and `/model sonnet` before step 3, or start with `/model opusplan` (Opus in plan mode, Sonnet in execution). Measure it: run the same ticket entirely on Opus once and compare usage and retries.
