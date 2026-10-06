@@ -21,7 +21,7 @@ exit /b 1
 
 :compile_msvc
 echo [MSVC] Compiling Demo 05...
-cl /nologo /std:c++17 /W4 /EHsc /Iinclude src\retry_policy.cpp tests\retry_policy_test.cpp /Fe:retry_policy_test.exe
+cl /nologo /std:c++17 /W4 /WX /EHsc /Iinclude src\retry_policy.cpp tests\retry_policy_test.cpp /Fe:retry_policy_test.exe
 if %ERRORLEVEL% neq 0 exit /b %ERRORLEVEL%
 echo Running retry_policy_test.exe...
 retry_policy_test.exe
