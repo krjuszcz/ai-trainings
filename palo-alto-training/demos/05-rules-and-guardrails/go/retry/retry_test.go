@@ -41,6 +41,28 @@ func TestBaselineRetryPolicy(t *testing.T) {
 			wantRetry:   false,
 			wantDelayMs: 0,
 		},
+		// Acceptance tests for task.md: red until RateLimited is implemented.
+		{
+			name:        "rate limited attempt 1",
+			code:        RateLimited,
+			attempt:     1,
+			wantRetry:   true,
+			wantDelayMs: 500,
+		},
+		{
+			name:        "rate limited attempt 4",
+			code:        RateLimited,
+			attempt:     4,
+			wantRetry:   true,
+			wantDelayMs: 4000,
+		},
+		{
+			name:        "rate limited attempt 5 stops",
+			code:        RateLimited,
+			attempt:     5,
+			wantRetry:   false,
+			wantDelayMs: 0,
+		},
 		{
 			name:    "attempt 0 error",
 			code:    Timeout,

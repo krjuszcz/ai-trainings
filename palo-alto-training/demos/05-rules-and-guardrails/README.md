@@ -44,6 +44,8 @@ This demo demonstrates how **repository guardrails** in `CLAUDE.md` enforce:
      go test -v ./...
      ```
 
+   The baseline is intentionally **red**: the tests already contain the `RATE_LIMITED` acceptance cases from `task.md`, so the run fails (`FAIL: rate limited attempt 1 should retry after 500 ms`). Step B turns it green.
+
 2. **Step A — Plan Mode (Test Planning First):**
    - Use the prompt in [prompt.md](prompt.md) (Step A).
    - Require Claude to formulate unit test cases and boundary conditions *without* editing production code.
