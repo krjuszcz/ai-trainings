@@ -9,6 +9,7 @@ $checks = @(
     @{ Pattern = '\(\s*(int|long|unsigned|DWORD|ULONG)\s*\)\s*sizeof'; Why = 'sizeof yields size_t (64-bit on x64); cast to a 32-bit type truncates.' },
     @{ Pattern = '\(\s*(int|long|unsigned( long)?|DWORD|ULONG)\s*\)\s*&?\s*\w*(ptr|Ptr|p_)\w*'; Why = 'Pointer cast to a 32-bit integer; use uintptr_t or INT_PTR/DWORD_PTR.' },
     @{ Pattern = '\b(int|long|unsigned|DWORD)\s+\w+\s*=\s*\w+\.(size|length)\(\)'; Why = 'Container size stored in a 32-bit type; use size_t.' },
+    @{ Pattern = 'static_cast\s*<\s*(int|long|unsigned( long| int)?|DWORD|ULONG)\s*>\s*\(.*(size|length|bytes|count)'; Why = 'static_cast of a size to a 32-bit type truncates silently on x64; return size_t.' },
     @{ Pattern = '\blong\s+\w+\s*=.*\b(size_t|ptrdiff_t)\b'; Why = 'long is 32-bit on both Windows x86 and x64, so it cannot hold a 64-bit size; use int64_t or size_t.' }
 )
 
