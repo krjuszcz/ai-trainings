@@ -1,6 +1,6 @@
 #pragma once
 
-namespace demo04 {
+namespace demo05 {
 
 enum class FailureCode { Timeout, TemporaryUnavailable, AuthFailed, RateLimited };
 
@@ -11,4 +11,4 @@ struct RetryDecision {
 
 RetryDecision decide_retry(FailureCode code, int attempt);
 
-}  // namespace demo04
+}  // namespace demo05

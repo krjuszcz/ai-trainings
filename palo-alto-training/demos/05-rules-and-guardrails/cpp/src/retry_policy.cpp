@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace demo04 {
+namespace demo05 {
 
 RetryDecision decide_retry(FailureCode code, int attempt) {
     if (attempt < 1) {
@@ -15,4 +15,4 @@ RetryDecision decide_retry(FailureCode code, int attempt) {
     return {true, attempt * 1000};
 }
 
-}  // namespace demo04
+}  // namespace demo05

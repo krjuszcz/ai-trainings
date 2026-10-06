@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(demo04_rules_and_guardrails CXX)
+project(demo05_rules_and_guardrails CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
