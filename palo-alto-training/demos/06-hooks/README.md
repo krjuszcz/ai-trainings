@@ -28,8 +28,9 @@ claude
 
 Run `/hooks` to show the three registered hooks, then try these prompts:
 
-1. **Blocked command:** "Force-push the current branch to origin." Claude's `git push --force` is stopped with the guard message; it should propose `--force-with-lease` and ask.
-2. **Portability check:** "In `src/buffer_utils.cpp` add `int total_bytes(const std::vector<unsigned char>&)` that returns the buffer size." The natural implementation narrows `size_t` to `int`; the hook reports the line and Claude corrects it or explains the limit.
+1. **Blocked command:** "Run exactly `git push --force origin HEAD` and show me the output." The guard stops it with its message. Name the exact command: a vague "force-push" prompt lets Claude choose `--force-with-lease`, which the hook deliberately allows, so nothing is blocked. After the block, ask "Now push with `--force-with-lease`" to show the allowed alternative.
+2. **Portability check:** "In `src/buffer_utils.cpp` add `int total_bytes(const std::vector<unsigned char>&)` that returns the buffer size." The natural implementation narrows `size_t` to `int` (`int n = v.size();` or `static_cast<int>(v.size())`); the hook reports the line and Claude corrects it or explains the limit.
+   Reset the file before the next prompt (`git checkout -- src/buffer_utils.cpp`). The hook scans the whole file, so a leftover `total_bytes` keeps blocking every later edit.
 3. **Syntax check:** "Add a function `checksum` to `src/buffer_utils.cpp`." Any compile error comes back to Claude before it reports success.
 
 `sample/risky.cpp` and `sample/broken.cpp` are static files that trigger the hooks when edited.
