@@ -157,6 +157,13 @@
     .level b { display:block; margin-bottom:10px; color:var(--primary); font-size:13px; letter-spacing:.1em; text-transform:uppercase; }
     .level strong { display:block; margin-bottom:8px; font-size:20px; }
     .level span { color:var(--text-muted); font-size:15px; line-height:1.35; }
+    .quick-check { display:grid; gap:10px; margin:22px 0 0; padding:0; list-style:none; }
+    .quick-check li { display:grid; grid-template-columns:58px 1fr; align-items:center; min-height:59px; overflow:hidden; background:white; transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease; }
+    .quick-check li:hover { transform:translateX(8px); border-color:var(--primary); box-shadow:0 15px 32px rgba(15,20,28,.1); }
+    .quick-check li b { align-self:stretch; display:grid; place-items:center; background:var(--primary); color:white; font-size:21px; }
+    .quick-check li:nth-child(even) b { background:var(--accent); }
+    .quick-check li span { padding:0 20px; font-size:17px; font-weight:750; }
+    .quick-check-slide .eyebrow { max-width:none; white-space:nowrap; }
     .footnote { margin:22px 0 0; color:var(--text-muted); font-size:17px; }
     .toolcards { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; height:420px; }
     .toolcard { padding:22px; display:flex; flex-direction:column; overflow:hidden; }
@@ -168,7 +175,7 @@
     .toolcard p { margin:0 0 10px; color:var(--text-muted); font-size:16px; line-height:1.4; }
     .toolcard .stat { padding:10px 12px; background:var(--primary-light); border-radius:10px; color:var(--text-dark); font-size:14px; font-weight:750; line-height:1.35; }
     .toolcard .tag { margin-top:auto; padding-top:10px; color:var(--primary); font-size:12px; font-weight:900; letter-spacing:.08em; text-transform:uppercase; }
-    body.grid-mode .slide .story,body.grid-mode .slide .levels,body.grid-mode .slide .toolcards { height:68%; }
+    body.grid-mode .slide .story,body.grid-mode .slide .levels,body.grid-mode .slide .quick-check,body.grid-mode .slide .toolcards { height:68%; }
     .bars { display:flex; align-items:flex-end; gap:12px; height:250px; padding:18px 22px 0; }
     .bar { flex:1; display:flex; flex-direction:column; justify-content:flex-end; align-items:stretch; height:100%; text-align:center; }
     .bar i { display:block; border-radius:6px 6px 0 0; }
@@ -246,7 +253,20 @@
         <aside class="notes">Open with the promise: the session is about making AI useful inside real engineering constraints. The live demos start immediately after this briefing.</aside>
       </section>
 
-      <section class="slide dark" data-index="02" data-title="Green on one target is not done">
+      <section class="slide white quick-check-slide" data-index="02" data-title="What do you actually do every week?">
+        <div class="section-head"><div><p class="eyebrow">Quick check · show of hands</p><h2>What do you actually do every week?</h2></div></div>
+        <ol class="quick-check">
+          <li class="panel"><b>1</b><span>Autocomplete and isolated questions</span></li>
+          <li class="panel"><b>2</b><span>An agent reads several files and proposes a change</span></li>
+          <li class="panel"><b>3</b><span>An agent implements, tests, and corrects</span></li>
+          <li class="panel"><b>4</b><span>The team versions rules, skills, and workflows</span></li>
+          <li class="panel"><b>5</b><span>An agent uses tools and works from an approved spec</span></li>
+        </ol>
+        <p class="footnote">The level is process-specific. You can be at 5 for testing and at 1 for IAM changes.</p>
+        <aside class="notes">Ask for a show of hands at each level. Participants should choose the highest level they use repeatedly in real work, not the most advanced experiment they tried once. Emphasize that adoption differs by process and risk.</aside>
+      </section>
+
+      <section class="slide dark" data-index="03" data-title="Green on one target is not done">
         <div class="brand-mark"><i></i>The story</div>
         <div style="position:absolute;left:68px;top:92px;right:68px;z-index:2">
           <p class="eyebrow">An AI wrote the range check</p>
@@ -264,7 +284,7 @@ FAIL: 64-bit offset truncated to 32 bits</span>
         <aside class="notes">This is the bug in Demo 03 and the saved output in Demo 01. The point is not that the model is bad at C++. The point is that an ordinary test set passes, and the defect appears only at SIZE_MAX and when a 64-bit offset is narrowed to 32 bits. Ask the room how many of them would have caught it in review. Then state the rule for the rest of the session: every claim names the target it was run on, and every unrun target is listed.</aside>
       </section>
 
-      <section class="slide white" data-index="03" data-title="Models propose; engineering systems verify">
+      <section class="slide white" data-index="04" data-title="Models propose; engineering systems verify">
         <div class="section-head"><div><p class="eyebrow">Operating model</p><h2>Models propose; engineering systems verify</h2></div></div>
         <div class="bridge">
           <div class="bridge-side panel fragment"><strong>Probabilistic model</strong><ul><li>Proposes changes</li><li>Explores paths</li><li>Needs boundaries</li></ul></div>
@@ -277,7 +297,7 @@ FAIL: 64-bit offset truncated to 32 bits</span>
         <aside class="notes">Avoid presenting the model as an autonomous engineer. Its value grows when we provide persistent context, constrain the task, and verify the result with the same engineering system used by the team.</aside>
       </section>
 
-      <section class="slide white" data-index="04" data-title="Where are we on the adoption ladder?">
+      <section class="slide white" data-index="05" data-title="Where are we on the adoption ladder?">
         <div class="section-head"><div><p class="eyebrow">Adoption levels</p><h2>Where are we on the adoption ladder?</h2></div></div>
         <div class="levels">
           <article class="level fragment"><b>1 · Prompting</b><strong>Answer</strong><span>You ask, you judge every reply.</span></article>
@@ -290,7 +310,7 @@ FAIL: 64-bit offset truncated to 32 bits</span>
         <aside class="notes">Skip this slide if time is short. It is a workshop model, not an industry standard. Maturity comes from a repeatable process, a controlled decision scope, and evidence, not from buying access to a model. Ask each person which level their last real task was at.</aside>
       </section>
 
-      <section class="slide" data-index="05" data-title="Team knowledge belongs in the repository">
+      <section class="slide" data-index="06" data-title="Team knowledge belongs in the repository">
         <div class="section-head"><div><p class="eyebrow">Persistent context</p><h2>Team knowledge belongs in the repository</h2></div></div>
         <div class="repo">
           <div class="tree fragment">
@@ -306,7 +326,7 @@ FAIL: 64-bit offset truncated to 32 bits</span>
         <aside class="notes">Repository instructions hold durable rules; skills hold repeatable procedures. /claude-api prompt-audit CLAUDE.md returns a report and a proposed diff and does not edit files. It flags capitalized emphasis, step-by-step scaffolding, stale paths and commands, and contradicting instructions. Check each finding against the real build commands and platform constraints before accepting it. A clean audit is a valid result.</aside>
       </section>
 
-      <section class="slide white" data-index="06" data-title="Each responsibility needs the right mechanism">
+      <section class="slide white" data-index="07" data-title="Each responsibility needs the right mechanism">
         <div class="section-head"><div><p class="eyebrow">Mechanism selection</p><h2>Each responsibility needs the right mechanism</h2></div></div>
         <div class="matrix">
           <div></div><div class="axis">Advisory</div><div class="axis">Enforced</div>
@@ -320,7 +340,7 @@ FAIL: 64-bit offset truncated to 32 bits</span>
         <aside class="notes">A rule can guide behavior but cannot guarantee it. Use hooks and CI for requirements that must run. Use skills for procedures that are useful only in specific tasks or environments.</aside>
       </section>
 
-      <section class="slide white" data-index="07" data-title="Three controls for cost, context, and effort">
+      <section class="slide white" data-index="08" data-title="Three controls for cost, context, and effort">
         <div class="section-head"><div><p class="eyebrow">The tools you will use</p><h2>Three controls for cost, context, and effort</h2></div></div>
         <div class="toolcards">
           <article class="toolcard panel fragment">
@@ -345,7 +365,7 @@ FAIL: 64-bit offset truncated to 32 bits</span>
         <aside class="notes">RTK, Caveman and Ponytail are specific tools, not built-in Claude features. The RTK figures come from the Demo 02 simulation (131 lines and about 1,250 tokens versus 6 lines and about 56 tokens), not from a measured customer log. The Ponytail numbers are the project own benchmark on a small sample, so call them vendor claims and tell the team to measure on their own tasks. Mascot and logo images are used under the MIT licenses in assets/.</aside>
       </section>
 
-      <section class="slide white" data-index="08" data-title="Prompt versus contract">
+      <section class="slide white" data-index="09" data-title="Prompt versus contract">
         <div class="section-head"><div><p class="eyebrow">Demo 04 preview</p><h2>The same task, a prompt and a contract</h2></div></div>
         <div class="story" style="height:350px">
           <article class="code-panel panel fragment"><div class="label">Run A · vague prompt</div><pre>Please add change risk handling
@@ -365,7 +385,7 @@ Verify: run the test command</pre><p class="note">Scope, constraints, non-goals,
         <aside class="notes">These are the prompts from Demo 04, shortened. The vague prompt leaves the model to invent scope and style. The contract names the files, the language and compiler limits, what is out of scope, and how to verify. Run both live and compare the diffs, not the summaries.</aside>
       </section>
 
-      <section class="slide white" data-index="09" data-title="Narrow context before changing code">
+      <section class="slide white" data-index="10" data-title="Narrow context before changing code">
         <div class="section-head"><div><p class="eyebrow">Large codebase navigation</p><h2>Narrow context before changing code</h2></div></div>
         <div class="funnel-wrap">
           <div class="funnel fragment"><div class="funnel-row">Observed failure</div><div class="funnel-row">Owning repository</div><div class="funnel-row">Concrete execution path</div><div class="funnel-row">Minimal change</div></div>
@@ -378,7 +398,7 @@ Verify: run the test command</pre><p class="note">Scope, constraints, non-goals,
         <aside class="notes">This is the practical answer to limited context windows. Do not load the whole 30-year codebase. Trace one failure, repository, execution path, and value until the smallest safe change becomes clear.</aside>
       </section>
 
-      <section class="slide" data-index="10" data-title="Keep code local; use MCP for team context">
+      <section class="slide" data-index="11" data-title="Keep code local; use MCP for team context">
         <div class="section-head"><div><p class="eyebrow">Multi-repository work</p><h2>Keep code local; use MCP for team context</h2></div></div>
         <div class="platform">
           <article class="platform-card fragment"><p class="eyebrow">Local workspace</p><h3>The 4–5 repositories on disk</h3><div class="platform-list"><div>Search and symbol navigation</div><div>Cross-repository edits</div><div>Compiler and test runs</div></div></article>
@@ -388,7 +408,7 @@ Verify: run the test command</pre><p class="note">Scope, constraints, non-goals,
         <aside class="notes">Reading local files costs no remote calls, and only local source can be compiled and tested. Use GitHub MCP for what lives outside the workspace: issues, pull requests, review comments, CI status, and as a fallback for a sixth repository that is not checked out. Keep write actions such as opening a PR reviewable and permission-scoped. Setup and tool list: GITHUB-MCP.md.</aside>
       </section>
 
-      <section class="slide white" data-index="11" data-title="Match the model to the step">
+      <section class="slide white" data-index="12" data-title="Match the model to the step">
         <div class="section-head"><div><p class="eyebrow">Model routing</p><h2>Match the model to the step</h2></div></div>
         <div class="pipeline">
           <article class="stage fragment"><b>01 · Ticket</b><strong>You</strong><span>Criteria and scope</span></article>
@@ -400,7 +420,7 @@ Verify: run the test command</pre><p class="note">Scope, constraints, non-goals,
         <aside class="notes">Opus 5.5 lists at $4 input and $20 output per million tokens; Sonnet 5.5 at $2 and $10, so half per token. Sonnet 5.5 is positioned for well-scoped everyday coding, which is what an approved spec is. No source we found measures Opus against Sonnet on the same task, so treat savings as unproven and have the team run one ticket both ways. In Claude Code: /model opusplan uses Opus in plan mode and Sonnet in execution, or set model in a skill's frontmatter as Demo 07 does. Escalate to Opus when Sonnet fails the same problem three times. Details and sources: MODEL-ROUTING.md.</aside>
       </section>
 
-      <section class="slide white" data-index="12" data-title="Hooks enforce what rules only request">
+      <section class="slide white" data-index="13" data-title="Hooks enforce what rules only request">
         <div class="section-head"><div><p class="eyebrow">Demo 06 preview</p><h2>Hooks enforce what rules only request</h2></div></div>
         <div class="story" style="height:380px">
           <article class="code-panel panel fragment"><div class="label">Three hooks in the demo</div><div class="rows">
@@ -420,7 +440,7 @@ on x64); cast to a 32-bit type truncates.</span></pre><p class="note">Exit code 
         <aside class="notes">A rule in CLAUDE.md asks; a hook enforces. The messages on the right are the real output of the Demo 06 scripts, with the long file path shortened. A hook is a command that runs with your permissions, so review it like any other script before enabling it. Hooks and CI cover what must always run; skills cover procedures needed only sometimes.</aside>
       </section>
 
-      <section class="slide white" data-index="13" data-title="Every turn resends everything before it">
+      <section class="slide white" data-index="14" data-title="Every turn resends everything before it">
         <div class="section-head"><div><p class="eyebrow">Cost anatomy</p><h2>Every turn resends everything before it</h2></div></div>
         <div class="story" style="height:380px">
           <article class="code-panel panel fragment"><div class="label">Context sent per turn</div>
@@ -448,7 +468,7 @@ on x64); cast to a 32-bit type truncates.</span></pre><p class="note">Exit code 
         <aside class="notes">Skip this slide if time is short. The claude.dev Opus 5.5 cost post puts it this way: a turn costs more than the tokens it adds, because it resends everything before it. It also says compaction pays back within about ten turns on a 150K-token context. Prices are Anthropic first-party list prices. The bar heights are an illustration, not data. Cheaper per token is not the same as cheaper per verified outcome.</aside>
       </section>
 
-      <section class="slide white" data-index="14" data-title="Text from outside is data, not instructions">
+      <section class="slide white" data-index="15" data-title="Text from outside is data, not instructions">
         <div class="section-head"><div><p class="eyebrow">Safety</p><h2>Text from outside is data, not instructions</h2></div></div>
         <div class="pipeline" style="grid-template-columns:repeat(4,1fr)">
           <article class="stage fragment"><b>01 · Untrusted text</b><strong>Issue, PR comment, log, web page</strong><span>Anyone can write into it.</span></article>
@@ -459,7 +479,7 @@ on x64); cast to a 32-bit type truncates.</span></pre><p class="note">Exit code 
         <aside class="notes">Skip this slide if time is short. It matters once GitHub MCP is in use, because issue and pull request text comes from people who may not be on your team. The defenses are layered: treat tool output as data, keep permissions narrow, add hooks for commands that must never run, and keep a person on writes such as opening or merging a PR.</aside>
       </section>
 
-      <section class="slide white" data-index="15" data-title="Every success claim needs observable proof">
+      <section class="slide white" data-index="16" data-title="Every success claim needs observable proof">
         <div class="section-head"><div><p class="eyebrow">Evidence contract</p><h2>Every success claim needs observable proof</h2></div></div>
         <div class="evidence">
           <article class="evidence-step fragment"><div class="disc"></div><h3>Claim</h3><p>State exactly what now works.</p></article>
@@ -470,7 +490,7 @@ on x64); cast to a 32-bit type truncates.</span></pre><p class="note">Exit code 
         <aside class="notes">Keep proof boundaries honest. Local tests, CI, review, deployment, and live behavior are distinct. A successful build proves compilation. It does not prove production behavior.</aside>
       </section>
 
-      <section class="slide white" data-index="16" data-title="Eight demos, one delivery loop">
+      <section class="slide white" data-index="17" data-title="Eight demos, one delivery loop">
         <div class="section-head"><div><p class="eyebrow">What happens next</p><h2>Eight demos, one delivery loop</h2></div></div>
         <div class="demo-map">
           <article class="demo fragment"><b>Demo 00<em>0:20</em></b><strong>Prompt Audit</strong><span>Prune CLAUDE.md, keep the MSVC flags.</span></article>
@@ -486,7 +506,7 @@ on x64); cast to a 32-bit type truncates.</span></pre><p class="note">Exit code 
         <aside class="notes">Walk the eight cards left to right. Times are minutes into the workshop. The instructor demonstrates each demo briefly and participants run it in their own Claude Code session; every demo has fallback files if a live call fails. The last demo ties the earlier ones into a ticket-to-PR loop they can reuse on their own tasks.</aside>
       </section>
 
-      <section class="slide dark" data-index="17" data-title="Questions before the demos?">
+      <section class="slide dark" data-index="18" data-title="Questions before the demos?">
         <div class="qa">
           <div><p class="eyebrow">Discussion</p><h2>Questions before the demos?</h2><p class="lead">Next: live Claude Code demos on C++ and Go examples, from prompt audit to ticket-to-PR.</p></div>
           <div class="qa-card"><div class="qmark">?</div></div>
@@ -499,7 +519,7 @@ on x64); cast to a 32-bit type truncates.</span></pre><p class="note">Exit code 
 
   <div id="progress"></div>
   <div id="help">←/→ navigate · G grid · T theme · F full screen · H controls · Alt+A admin</div>
-  <nav id="controls" aria-label="Presentation controls"><button id="prev" aria-label="Previous slide">‹</button><span id="counter">01 / 17</span><button id="next" aria-label="Next slide">›</button></nav>
+  <nav id="controls" aria-label="Presentation controls"><button id="prev" aria-label="Previous slide">‹</button><span id="counter">01 / 18</span><button id="next" aria-label="Next slide">›</button></nav>
 
   <div id="admin" aria-hidden="true">
     <section class="admin-card">
